@@ -27,7 +27,7 @@ cargo test
 
 
 
-
+Stringi i printfy
 
 Vec - wektor dynamicznej długości (Vec<u64>)
 std::env::args() - argumenty programu
@@ -50,6 +50,5 @@ match res
 }
 
 TODO: format!
-
 
 IDE?
