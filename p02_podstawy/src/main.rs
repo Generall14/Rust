@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use std::fs;
 
 //==================================== Typy ================================================================
 // Własne typy
@@ -52,12 +53,6 @@ fn test_funkcja()
 	assert_eq!(funkcja(4f64),2f64);
 }
 
-// Łańcuchy znaków
-//TODO
-
-// DOkumentacja
-// TODO
-
 //==================================== Kolekcje ============================================================
 // Krotki
 fn funkcja_zwracajaca_krotke() -> (u64, f64)
@@ -98,7 +93,74 @@ fn wektory()
 	vec2.push(10u32);
 }
 
-// Tekst
+//==================================== Dokumentacja ========================================================
+/// Opis funkcji fun_doc, generowane przez "cargo doc"
+fn fun_doc()
+{
+}
+
+//==================================== Wyrażenia ===========================================================
+fn wyrazenia()
+{
+	let x = false;
+	let y = if x {1} else {2}; // if jest wyrażeniem i zwraca wartość
+	let mut z = match y // match jest wyrażeniem i zwraca wartość
+	{
+		1 => 4,
+		2 => {println!("fd"); y*2}
+		4 => 6,
+		_ => 0 // default
+	};
+	println!("{z}");
+	z = 
+	{ // blok kodu jest wyrażeniem i zwraca wartość
+		let tx = 55;
+		let ty = 66;
+		tx*ty
+	};
+	println!("{z}");
+	
+	for i in 0..5
+	{
+		println!("for {i}");
+	}
+}
+//==================================== Błędy ===============================================================
+fn ret_error() -> Result<String, std::io::Error>
+{
+	fs::read_to_string("hello.txt")
+}
+
+fn ret_some() -> Option<u32>
+{
+	Some(666u32)
+}
+
+fn bledy()
+{
+	//panic!();
+	//panic!("Test panic");
+	
+	let _v1 = match ret_error()
+	{
+		Ok(v) => v,
+		Err(err) => {
+			println!("{}", err);
+			println!("{:?}", err);//Dokładniejszy opis pliku
+			String::new()
+			}
+	};
+	let _v2 = match ret_some()
+	{
+		Some(v) => v,
+		None => 0
+	};
+	//let _v3 = ret_error().unwrap();//Zwraca wartość lub panikuje
+	//let _v4 = ret_error().expect("text");//j.w. plus wyświetla wiadomość
+	//let _v5 = ret_error()?;//Returnuje error jeżeli funkcja zwróci błąd
+}
+
+//==================================== Tekst ===============================================================
 fn teksty()
 {
 	let _t1 = "String\n";
@@ -108,7 +170,10 @@ fn teksty()
 	let _t4 = b"tekst pisany w ASCII";
 	println!("{}", t2);
 	println!("{}", t3);
+	wyrazenia();
 }
+
+//TODO
 
 //==========================================================================================================
 fn main() 
@@ -120,4 +185,6 @@ fn main()
 	ref_fun();
 	wektory();
 	teksty();
+	bledy();
+	fun_doc();
 }

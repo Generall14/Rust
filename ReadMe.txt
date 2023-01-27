@@ -29,9 +29,9 @@ cargo test
 
 
 
-
+Todo:
 std::env::args() - argumenty programu
-
+rand
 Nie ma wyjątków. Zwrotki z typem Result //TODO
 
 Wyrażenie match:
