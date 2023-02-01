@@ -1,5 +1,7 @@
 use std::collections::HashMap;
 use std::fs;
+mod moda;
+mod modb;
 
 //==================================== Typy ================================================================
 // Własne typy
@@ -37,6 +39,90 @@ fn ref_fun()
 	let mut loc: Tablica = Tablica::new();
 	ref_f1(&loc); // Referencja współdzielona (tylko do odczytu)
 	ref_f2(&mut loc); // Referencja mutowalna
+}
+
+//==================================== Struktury ===========================================================
+struct Struktura1
+{
+	var1: u32,
+	var2: Vec<u8>
+}
+//Dziedziczenie metod:
+#[derive(Copy, Clone, Debug, PartialEq)]
+struct Struktura2(usize, usize); //Struktura z polami numerowanymi
+
+impl Struktura1
+{
+	pub fn dmet(&self) //Publiczna metoda struktury
+	{
+		println!("{}, {}", self.var1, self.var2.len());
+	}
+	pub fn smet() //Statyczna metoda
+	{
+		println!("smet");
+	}
+}
+
+fn struktury()
+{
+	let _str1 = Struktura1{
+		var1: 22,
+		var2: vec![0; 10]	
+	};
+	let var1 = 2;
+	let var2 = vec![0; 2];
+	let str2 = Struktura1{var1, var2};
+	let var3 = Struktura2(1, 20);
+	println!("{}, {}", var3.0, var3.1);
+	str2.dmet();
+	Struktura1::smet();
+}
+
+//==================================== Enumy ===============================================================
+
+enum En1
+{
+	En1a,
+	En1b,
+}
+
+#[derive(Debug)]
+enum En2 // Enum z wartościami, coś jak uncja
+{
+	En2a{aa:u32, bb:u32},
+	En2b{aa:f64},
+	En2c(f64),
+	En2d(f64, f64),
+	En2e
+}
+
+impl En2
+{
+	pub fn disp(&self)
+	{
+		match self
+		{
+			En2::En2a{aa, bb} => {println!("{aa} {bb}")},
+			En2::En2b{aa} => {println!("{aa}")},
+			En2::En2c(v) => {println!("{v}")},
+			En2::En2d(v, z) => {println!("{v} {z}")},
+			En2::En2e => {println!("?")},
+		}
+	}
+}
+
+fn enumy()
+{
+	let _var1 = En1::En1a;
+	let _var2 = En1::En1b;
+	let _var3 = En2::En2c;
+	let _var4 = En2::En2b{aa:5f64};
+	let _var5 = En2::En2a{aa:44, bb:66};
+	let _var6 = En2::En2c(6f64);
+	let _var7 = En2::En2d(6f64, 55f64);
+	let _var8 = En2::En2e;
+	println!("{:?} {:?} {:?} {:?}", _var5, _var4, _var6, _var7);
+	_var5.disp();
 }
 
 //==================================== Funkcje =============================================================
@@ -175,6 +261,14 @@ fn teksty()
 
 //TODO
 
+//==================================== Moduły ==============================================================
+fn mods()
+{
+	moda::ma_fun();
+	modb::mb_fun();
+	modb::sub_modb::msb_fun();
+}
+
 //==========================================================================================================
 fn main() 
 {
@@ -187,4 +281,7 @@ fn main()
 	teksty();
 	bledy();
 	fun_doc();
+	mods();
+	struktury();
+	enumy();
 }
