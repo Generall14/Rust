@@ -269,6 +269,58 @@ fn mods()
 	modb::sub_modb::msb_fun();
 }
 
+//==================================== Zestawy metod =======================================================
+trait TestTr1
+{
+	fn fun2(&self);
+}
+
+trait TestTr2: TestTr1 // Dziedziczenie zestawu
+{
+	fn fun1(&self, other: &Self);
+	fn fun3(&self) // Metoda domyślna
+	{
+		self.fun2();
+		println!("TestTr2.fun3");
+	}
+	fn fun4(&self);
+}
+
+struct TestStr
+{
+	va: u32
+}
+
+impl TestTr1 for TestStr
+{
+	fn fun2(&self)
+	{
+		println!("My: {}", self.va);
+	}
+}
+
+impl TestTr2 for TestStr
+{
+	fn fun1(&self, other: &Self)
+	{
+		println!("My: {}, other: {}", self.va, other.va);
+	}
+	fn fun4(&self)
+	{
+		println!("TestStr.fun4");
+	}
+}
+
+fn zestawy_metod()
+{
+	let loc = TestStr{va:2};
+	let loc2 = TestStr{va:25};
+	loc.fun1(&loc2);
+	loc.fun2();
+	loc.fun3();
+	loc.fun4();
+}
+
 //==========================================================================================================
 fn main() 
 {
@@ -284,4 +336,5 @@ fn main()
 	mods();
 	struktury();
 	enumy();
+	zestawy_metod();
 }
