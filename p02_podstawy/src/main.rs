@@ -126,10 +126,22 @@ fn enumy()
 }
 
 //==================================== Funkcje =============================================================
+fn tfun(arg: f64) -> f64
+{
+	arg*arg+55f64
+}
+
+type FunPtr = fn(f64)->f64;
+fn fun_caller(fun: FunPtr, arg: f64)//Wskaźnik na funkcje
+{
+	println!("fun({})={}", arg, fun(arg));
+}
+
 fn funkcja(mut arg:f64) -> f64
 {
 	assert!(arg>0f64);//Wywołanie makra (wykrzyknik)
 	arg = arg.sqrt();
+	fun_caller(tfun, 7.0);
 	arg // zwracana wartość (ostatnie wyrażenie bez średnika), można zwracać jawnie: return arg;
 }
 #[test]
