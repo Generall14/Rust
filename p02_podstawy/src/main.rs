@@ -268,10 +268,25 @@ fn teksty()
 	let _t4 = b"tekst pisany w ASCII";
 	println!("{}", t2);
 	println!("{}", t3);
-	wyrazenia();
+	print!("Tekst bez automatycznego konnca lini\n");
+	
+	let utemp = 1233u16;
+	println!("Hex: {:x}, octal: {:o}, binary: {:b}", utemp, utemp, utemp);
+	println!("Prefix+ hex: {:#x}, octal: {:#o}, binary: {:#b}", utemp, utemp, utemp);
+	println!("Znak: {:+} {:+}", utemp, -1*utemp as i16);
+	println!("Wyrównanie: :{:<10}:{:>10}:", utemp, utemp);
+	
+	let ftemp = 66.123456f32;
+	println!("Długość/precyzja :{:10.2}:", ftemp);
+	println!("Exp: {:e}/{:E}", ftemp, ftemp);
+	
+	println!("{utemp} {ftemp}");
+	println!("{2} {1} {0} {1}", ftemp, utemp, ftemp);
+	
+	let ktemp = (563.66f32, 44i16);
+	println!("Dbg: {:?}", ktemp);
+	println!("Dbg ładniejsze: {:#?}", ktemp);
 }
-
-//TODO
 
 //==================================== Moduły ==============================================================
 fn mods()
@@ -342,11 +357,12 @@ fn main()
 	tablice();
 	ref_fun();
 	wektory();
-	teksty();
+	wyrazenia();
 	bledy();
 	fun_doc();
 	mods();
 	struktury();
 	enumy();
 	zestawy_metod();
+	teksty();
 }
